@@ -1,11 +1,23 @@
 import { Link } from "react-router-dom";
 import signUpImg from '../../assets/b9-crud-10/signup.jpg'
 import { FaGoogle } from "react-icons/fa6";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider/AuthProvider";
 
 const SignUp = () => {
+  const {createUser}=useContext(AuthContext)
     const handleSignUp=(event)=>{
         event.preventDefault();
-        console.log('click login button')
+        const form =event.target;
+        const email=form.email.value;
+        const password=form.password.value;
+        createUser(email, password)
+        .then(result=>{
+          console.log(result.user)
+        })
+        .catch(error=>{
+          console.log(error.message);
+        })
     }
     return (
         <div className="">

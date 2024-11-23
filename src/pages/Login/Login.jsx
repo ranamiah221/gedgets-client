@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import loginImg from '../../assets/b9-crud-10/signIn.jpg'
 import { FaGoogle } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 const Login = () => {
+  const {signIn}=useContext(AuthContext);
     const handleLogin=(event)=>{
         event.preventDefault();
-        console.log('click login button')
+        const form =event.target;
+        const email=form.email.value;
+        const password=form.password.value;
+        signIn(email,password)
+        .then(result=>{
+          console.log("logged",result.user)
+        })
+        .catch(error=>{
+          console.log(error.message);
+        })
     }
     return (
         <div className="">
